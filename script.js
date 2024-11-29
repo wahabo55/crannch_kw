@@ -260,37 +260,16 @@ function printReceipt() {
         </div>
     `;
 
-    // Open the print window and add the content
-    const printWindow = window.open('', '', 'width=300,height=700');
-    printWindow.document.write(`
-        <html>
-            <head>
-                <title>Receipt</title>
-                <style>
-                    body { font-family: 'Arial', sans-serif; padding: 20px; margin: 0; }
-                    h2 { font-size: 28px; }
-                    .thank-you { font-size: 14px; color: #333; text-align: center; margin-top: 20px; }
-                    .total { font-size: 18px; font-weight: bold; }
-                    @media print {
-                        body { font-size: 12px; padding: 0; }
-                        img { max-width: 100%; }
-                    }
-                </style>
-            </head>
-            <body>
-                ${receiptHtml}
-                <script>
-                    window.onload = function() {
-                        setTimeout(function() {
-                            window.print();
-                            window.close();
-                        }, 500); // Delay printing to ensure content is loaded
-                    };
-                </script>
-            </body>
-        </html>
-    `);
-    printWindow.document.close(); // Ensure the document is fully loaded
+    // Open a new print window, without creating a new div
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Receipt</title>');
+    printWindow.document.write('<style>@media print { body { font-family: Arial, sans-serif; font-size: 14px; } }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(receiptHtml);
+    printWindow.document.write('</body></html>');
+
+    printWindow.document.close();
+    printWindow.print();
 }
 
 

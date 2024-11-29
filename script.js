@@ -238,7 +238,7 @@ function printReceipt() {
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleString();
 
-    // Create the receipt content with stylish format
+    // Create the receipt content with a stylish format
     const receiptHtml = `
         <div style="text-align: center; font-family: 'Arial', sans-serif; background: linear-gradient(to right, #FF7E5F, #FEB47B); padding: 10px; border-radius: 10px;">
             <!-- Logo -->
@@ -267,10 +267,14 @@ function printReceipt() {
             <head>
                 <title>Receipt</title>
                 <style>
-                    body { font-family: 'Arial', sans-serif; padding: 20px; }
+                    body { font-family: 'Arial', sans-serif; padding: 20px; margin: 0; }
                     h2 { font-size: 28px; }
                     .thank-you { font-size: 14px; color: #333; text-align: center; margin-top: 20px; }
                     .total { font-size: 18px; font-weight: bold; }
+                    @media print {
+                        body { font-size: 12px; padding: 0; }
+                        img { max-width: 100%; }
+                    }
                 </style>
             </head>
             <body>
@@ -280,7 +284,7 @@ function printReceipt() {
                         setTimeout(function() {
                             window.print();
                             window.close();
-                        }, 100);
+                        }, 500); // Delay printing to ensure content is loaded
                     };
                 </script>
             </body>
@@ -288,8 +292,6 @@ function printReceipt() {
     `);
     printWindow.document.close(); // Ensure the document is fully loaded
 }
-
-
 
 
 // Event listeners for navigation
